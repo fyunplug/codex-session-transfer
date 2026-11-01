@@ -36,6 +36,11 @@ $codex-session-transfer 导出当前会话，只保留每项成果最后引用�
 ```text
 $codex-session-transfer 导入 "D:\\迁移\\会话包.zip"
 ```
+或将生成的单个迁移 ZIP 拖入对话框：
+
+```text
+$codex-session-transfer 导入历史对话
+```
 
 也可以双击 `import-session.cmd` 选择迁移包。诊断时运行 `check-environment.cmd`，可将 ZIP 拖到该入口。
 
