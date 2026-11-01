@@ -219,6 +219,10 @@ class Sanitizer:
             for k, v in value.items():
                 if SENSITIVE.fullmatch(k):
                     self.counts['removed_fields'] += 1
+                elif (k == 'encrypted_content' and value.get('type') in ('reasoning', 'compaction')
+                      and isinstance(v, str)):
+                    # Opaque authenticated ciphertext can resemble credentials by chance.
+                    result[k] = v
                 else:
                     result[k] = self.clean(v)
             return result
@@ -234,8 +238,8 @@ class Sanitizer:
                 pass
             else:
                 cleaned = self.clean(parsed)
-                if parsed != cleaned:
-                    text = json.dumps(cleaned, ensure_ascii=False)
+                # Each nested string was already scanned; rescanning JSON corrupts ciphertext.
+                return json.dumps(cleaned, ensure_ascii=False) if parsed != cleaned else text
         for identity in self.identities:
             if identity in text:
                 self.counts['identity_replacements'] += text.count(identity)
@@ -523,7 +527,7 @@ def environment_report(home, executable=None):
             codex['message'] = 'Codex could not be started: ' + str(exc)
     else:
         codex['message'] = 'Codex engine not found. Install/open Codex or provide --codex with its executable path.'
-    return {'skill_version': '1.0.0', 'python': python, 'codex': codex, 'codex_home': str(Path(home).resolve()),
+    return {'skill_version': '1.0.3', 'python': python, 'codex': codex, 'codex_home': str(Path(home).resolve()),
             'runtime_ready': python['ready'] and codex['ready'],
             'account_check': 'Not checked. The destination account must already be able to use Codex.',
             'compatibility_check': 'Runtime checks do not replace the isolated native-import rehearsal.'}

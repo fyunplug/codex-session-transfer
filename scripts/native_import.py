@@ -39,7 +39,7 @@ class AppServer:
         self.reader.start()
         try:
             self.info = self.call('initialize', {'clientInfo': {'name': 'codex_session_transfer',
-                'title': 'Codex Session Transfer', 'version': '1.0.0'}, 'capabilities': {'experimentalApi': True}})
+                'title': 'Codex Session Transfer', 'version': '1.0.3'}, 'capabilities': {'experimentalApi': True}})
             self.send({'method': 'initialized'})
         except BaseException:
             self.close()
