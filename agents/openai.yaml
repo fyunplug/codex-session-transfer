@@ -1,0 +1,7 @@
+interface:
+  display_name: "会话迁移"
+  short_description: "在 Windows 电脑间迁移 Codex 会话、附件和项目"
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#17266B"
+  default_prompt: "使用 $codex-session-transfer 导出当前 Codex 会话及其关联文件。"

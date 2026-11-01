@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.validation-temp/
+session-exports/
+session-files/
+session-projects/
+codex-transfer-cache/
+*.zip
+*.zip.sha256
+.env
+.env.*
+auth.json
+.netrc
+.git-credentials
